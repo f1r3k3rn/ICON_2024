@@ -106,7 +106,7 @@ Ho deciso di avere due finalità per il progetto:
 Per fare ciò ho pensato a un task che potesse essere utile per l'azienda e affrontarlo in maniera più semplice ai fini di dimostrare sia le competenze acquisite e sia la fattibilità del task.
 
 Sia $SR$ un vettore di dimensione $n$ dove $n$ è il numero di round giocati nella partita $m$.
-$SR[i]$ continene le statistiche comulative del giocatore $p$ al round $i$.
+$SR[i]$ contiene le statistiche comulative del giocatore $p$ al round $i$.
 
 - **Task target in questo progetto**: Dato $SR[n]$ determinare se la partita $m$ è vinta o persa. 
 
@@ -228,7 +228,7 @@ Per questo ho deciso di effettuare le seguenti operazioni:
     - `game_id` è un identificativo univoco per ogni partita, non ha senso pensare che sia una feature che influisce sull'outcome.
     - `date` la data non influisce sull'outcome.
     - `episode` e `act` sono feature che non influiscono sull'outcome sono dei termini usati in gioco per indicare le finestre temporali di un anno.
-    - `rank` è un punteggio che indica il grado del giocatore all'inizio della partia, (analogo a scacchi `granmaestro` / `maestro`) non influisce sulla partita poichè nel sistema di ranking, i giocatori devono avere punteggio simile, il rank quindi non è una feature che contribuisce all' outcome. 
+    - `rank` è un punteggio che indica il grado del giocatore all'inizio della parità, (analogo a scacchi `granmaestro` / `maestro`) non influisce sulla partita poichè nel sistema di ranking, i giocatori devono avere punteggio simile, il rank quindi non è una feature che contribuisce all' outcome. 
     - `map` la mappa non influisce sull'outcome della partita.
     - `num_frag` è la posizione nella classifica della squadra in base al numero di uccisioni, non influisce sull'outcome e inoltre noi vogliamo predire l'outcome basato solo sulle statistiche di un giocatore non su quelle di tutti.
     - `avg_dmg_delta` e `avg_dmg`: dipendono troppo strettamente dal `kdr` più il `kdr` è alto più il `avg_dmg` saranno alti e viceversa.
@@ -392,7 +392,7 @@ Per valutare i modelli ho utilizzato le seguenti metriche:
   - **Recall**: è la percentuale di predizioni positive corrette fatte dal modello rispetto a tutte le predizioni positive.
   - **F1-Score**: è la media armonica tra precision e recall.
 
-- Invece di usare le curve di apprendimento che valutano la prestazione di una metrica descritta ho usato quelle per l'errore sulla metrica ovvero $1 - metrica$ invece di avere un grafico che dovrebbe aumnentare al numero di elementi nel test set, con l'errore diventano dei rami di iperbole.
+- Invece di usare le curve di apprendimento che valutano la prestazione di una metrica descritta ho usato quelle per l'errore sulla metrica ovvero $1 - metrica$ invece di avere un grafico che dovrebbe aumentare al numero di elementi nel test set, con l'errore diventano dei rami di iperbole.
 
 Per ogni modello ho confrontato il dataset con e senza `SMOTE` per vedere se ci fossero differenze significative.
 
@@ -503,7 +503,7 @@ La Logistic Regression è un modello utilizzato principalmente per problemi di c
   - `[0.001, 0.01, 0.1, 1, 10]`: 
 - **`solver`**: Algoritmo per l'ottimizzazione.
   - `'liblinear'`: [coordinate descent](https://www.youtube.com/watch?v=TiiF3VG_ViU) 
-  - `'saga'`: Algoritmo basato sul gradiente stocastico, ma con una variante che sfrutta gradienti medi per velocizzare la convergenza che supporta regolarizzazion $l1,l2$.
+  - `'saga'`: Algoritmo basato sul gradiente stocastico, ma con una variante che sfrutta gradienti medi per velocizzare la convergenza che supporta regolarizzazione $l1,l2$.
 - **`max_iter`**: Numero massimo di iterazioni per la convergenza.
   - `[100000, 150000]` 
 
@@ -626,7 +626,7 @@ Le **Artificial Neural Networks (ANN)** sono modelli di apprendimento ispirati a
 
 ## Conclusioni
 
-Come si può vedere dai grafici, **Decision tree** e **Random forset** non danno risultati significativi e indipendentemente dal dataset senza **SMOTE** presentano overfitting.
+Come si può vedere dai grafici, **Decision tree** e **Random forest** non danno risultati significativi e indipendentemente dal dataset senza **SMOTE** presentano overfitting.
 
 **Logistic regression**, **SVM** e **ANN** presentano risultati simili fra di loro indipendentemente dall' applicazione di **SMOTE**, con **ANN** che è leggermente migliore, ma c'è da considerare che il dataset è molto piccolo e ci possiamo permettere questo sforzo computazionale nell' eventualità di un dataset più grande i migliori modelli sarebbero stati **SVM** e **Logistic Regression**.
 
@@ -659,7 +659,7 @@ La struttura del modello è molto interessante, possiamo vedere che:
 - l'`acs` che è un indicatore medio è l'unica foglia, il suo metodo di calcolo è sconosciuto poichè propietario di Riot Games ha molto senso che sia l'unica foglia poichè rappresenta un indice medio di valutazione.
 - l' `outcome` dipende principalmente dal kdr, logicamente ha senso poichè se un giocatore ha un kdr alto vuol dire che ha eliminato più nemici di quante volte sia morto, il che implica che le probabilità di vittoria aumentano.
 - Il `personaggio` influenza gli `assists` è perfetto poichè un personaggio che ha funzioni di supporto aiuta i compagni a eliminare i nemici uno che ha funzioni di attacco elimina i nemici in maniera avida (senza aiutare i compagni).
-- l' `headshot_pct` è l'unico valore che influenza solo l'acs, la motivazione è che i colpi alla testa non danno informazioni su quante volte un giocatore ha eliminato un nemico o quanti assists ha fatto, un giocatore poitrebbe avere 70% di headshot_pct, ma avere poche kills o viceversa pocha **headshot_pct**,ma molte kills si pensa a un fucile a pompa e si immagini la rosa è facile comprendere che mediamente non si fanno molti headshot.
+- l' `headshot_pct` è l'unico valore che influenza solo l'acs, la motivazione è che i colpi alla testa non danno informazioni su quante volte un giocatore ha eliminato un nemico o quanti assists ha fatto, un giocatore porterebbe avere 70% di headshot_pct, ma avere poche kills o viceversa poca **headshot_pct**,ma molte kills si pensa a un fucile a pompa e si immagini la rosa è facile comprendere che mediamente non si fanno molti headshot.
 - tutte le altre relazioni inflenzano l'acs che come abbiamo detto ha molto senso poichè è un indice medio di valutazione.
 
 Ho deciso di generare degli esempi per vedere se il modello è coerente con la realtà.
@@ -677,7 +677,7 @@ Ho deciso di generare degli esempi per vedere se il modello è coerente con la r
 
 ### Curiosità
 
-L' immagine mostra delle statistiche di un altro giocatore con rank simile al gicatore del dataset si veda come l' ACS medio del giocatore è vicino a quelli del campione generato.
+L' immagine mostra delle statistiche di un altro giocatore con rank simile al giocatore del dataset si veda come l' ACS medio del giocatore è vicino a quelli del campione generato.
 
 ![img.png](img/_general/wooeiz.png)
 
