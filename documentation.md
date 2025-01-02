@@ -101,7 +101,7 @@ Il gioco semplificato è definito come segue:
 Ho deciso di avere due finalità per il progetto:
 
 - Dimostrare le competenze acquisite durante il corso di ICON.
-- Presentare una demo alla community di valorant per ottenere una API production ke, così posso estendere il progetto.
+- Presentare una demo alla community di valorant per ottenere una API production key, così posso estendere il progetto.
 
 Per fare ciò ho pensato a un task che potesse essere utile per l'azienda e affrontarlo in maniera più semplice ai fini di dimostrare sia le competenze acquisite e sia la fattibilità del task.
 
@@ -233,7 +233,7 @@ Per questo ho deciso di effettuare le seguenti operazioni:
     - `num_frag` è la posizione nella classifica della squadra in base al numero di uccisioni, non influisce sull'outcome e inoltre noi vogliamo predire l'outcome basato solo sulle statistiche di un giocatore non su quelle di tutti.
     - `avg_dmg_delta` e `avg_dmg`: dipendono troppo strettamente dal `kdr` più il `kdr` è alto più il `avg_dmg` saranno alti e viceversa.
   - **Rimozione di Features Ridondanti**: `round_wins` e `round_losses` sono ridondanti rispetto all'`outcome`, `deaths` e `kills` sono ridondanti rispetto al `kdr`.
-  - **Encoding delle Categorical Features**: ho deciso di utilizzare l'encoding one-hot per la feature categoriga `agent` ed `outcome` però come vedremo successivamente regrediscono a features binarie.
+  - **Encoding delle Categorical Features**: ho deciso di utilizzare l'encoding one-hot per la feature categorica `agent` ed `outcome` però come vedremo successivamente regrediscono a features binarie.
   - **Taglio degli outliner**: ho deciso di usare il metodo [IQR](https://deeplearningitalia.com/outliers-nel-machine-learning-comprendere-il-loro-impatto-sullanalisi-dei-dati/#:~:text=Il%20metodo%20del%20range%20interquartile,pu%C3%B2%20essere%20rimosso%20dal%20dataset.) "taglio le due code della distribuzione di una feature in base ai quantili" per eliminare gli outliner su quelle feature che presentavano valori molto distanti dalla media, poichè possono influenzare negativamente i modelli.
     - **motivazioni:** In un game **squilibrato** le statistiche di un giocatore possono essere molto alte o molto basse, ma questo non dipende dal giocatore ma dal fatto che la partita è squilibrata possibili cause (uno o più giocatori si sono disconnessi , uno o più giocatori dimostrano comportamenti lenosi sulla propria squadra)
   - **Normalizzazione delle Features**: I modelli come **SVM** che lavorano sulle distanze sono molto sensibili alla scala delle features, normalizzare le features porta molto spesso a un miglioramento dei risultati.
@@ -368,7 +368,7 @@ formalizzabile come:
 
 $N_{combinazioni} = \prod_{i=1}^{n} |V_i|$
 
-Questo fattore va moltiplicato con il tempo di addestramento del modello. Su Datasets molto grandi è un approccio futile, ci possiamo permetter questo sforzo computazionale perchè il dataset è molto piccolo.
+Questo fattore va moltiplicato con il tempo di addestramento del modello. Su Datasets molto grandi è un approccio futile, ci possiamo permettere questo sforzo computazionale perchè il dataset è molto piccolo.
 
 **Motivazioni**
 
@@ -401,7 +401,6 @@ Per ogni modello ho confrontato il dataset con e senza `SMOTE` per vedere se ci 
 Per ogni modello ho strutturato la seguente lista:
 
 - breve descrizione
-- Per ogni modello 
 - hyperparameters
 - risultati senza SMOTE
 - risultati con SMOTE
