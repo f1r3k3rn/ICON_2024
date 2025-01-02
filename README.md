@@ -1,7 +1,5 @@
 # ICON Course Project 2024/2025
 
-![ICON Course Banner](img/_general/banner.png)
-
 ## Introduzione
 Questo repository raccoglie il progetto realizzato per il corso di ICON 2024/2025, tenuto dal Professore **Nicola Fanizzi** presso l'Università degli Studi di Bari Aldo Moro.
 
@@ -63,6 +61,3 @@ Questo progetto è distribuito sotto la licenza MIT. Consulta il file [LICENSE](
 
 ## Crediti
 Progetto sviluppato da **[Porcelli andrea]**, Università degli Studi di Bari Aldo Moro.
-
-![UniBa Logo](img/_general/uniba_logo.png)
-
