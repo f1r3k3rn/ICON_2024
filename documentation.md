@@ -142,7 +142,7 @@ C:.
 │   └───pl_files # .pl
 └───supervised_training #apprendimento supervisionato
 ```
-**attenzione:**
+**Attenzione:**
 - in ```main.py``` si trova il codice usato per i capitoli 1 - 2
 - in ```bayes/bayes.py``` si trova il codice usato per il capitolo 3
 - in ```prolog/prolog_dialog.py``` si trova il codice usato per il capitolo 4
@@ -155,27 +155,27 @@ Il dataset che ho scelto di utilizzare è stato trovato su [Kaggle](https://www.
 
 - Il dataset è composto da 1000 record e 19 Features.
 
-| **Feature**       | **Descrizione**                                                                                                                             | **Dominio**                                                  |
-|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------|
-| **game_id**       | Identificativo univoco per ogni partita                                                                                                     | {1..1000}                                                    |
-| **episode**       | Equivalente al significato di stagioni (calcio)                                                                                             | {0..9}                                                       |
-| **act**           | Finestre temporali su cui si divide un episodio                                                                                             | {1, 2, 3}                                                    |
-| **rank**          | Punteggio competitivo come in scacchi (granmaestro,maestro,maestro internazionale) nel gioco si usano i metalli come sistema di valutazione | {Gold 1, Platinum 2, Diamond 3, ...}                         |
-| **date**          | La data in cui si è svolta la partita                                                                                                       | {Date in formato "DD-MM_YYYY"}                               |
-| **agent**         | Il personaggio giocato in quella partita                                                                                                    | {Phoenix, Jett, Reyna, ...}                                  |
-| **map**           | La mappa in cui si è svolta la partita                                                                                                      | {Bind, Ascent, Haven, ...}                                   |
-| **outcome**       | L'esito della partita (vittoria/sconfitta/pareggio)                                                                                         | {Win, Loss, Draw}                                            |
-| **round_wins**    | Numero di round vinti                                                                                                                       | $\mathbb{N}$                                                             |
-| **round_losses**  | Numero di round persi                                                                                                                       | $\mathbb{N}$                                                 |
-| **kills**         | Numero di uccisioni di giocatori nemici                                                                                                     | $\mathbb{N}$                                                             |
-| **deaths**        | Numero di volte in cui si è stati uccisi dai nemici                                                                                         | $\mathbb{N}$                                                             |
-| **assists**       | Numero di assist (aiuto ai compagni nell' uccidere un nemico)                                                                               | $\mathbb{N}$                                                 |
-| **kdr**           | Rapporto uccisioni/morti calcolato con la formula $\frac{kills}{max\{1,death\}}$                                                            | {x ∈ ℝ                                                        x ≥ 0} |                 |
-| **avg_dmg_delta** | Differenza media per round tra i danni inflitti e i danni subiti su tutti i round.                                                          | {x ∈ ℝ}                                                      |
+| **Feature**       | **Descrizione**                                                                                                                             | **Dominio**                                                                |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| **game_id**       | Identificativo univoco per ogni partita                                                                                                     | {1..1000}                                                                  |
+| **episode**       | Equivalente al significato di stagioni (calcio)                                                                                             | {0..9}                                                                     |
+| **act**           | Finestre temporali su cui si divide un episodio                                                                                             | {1, 2, 3}                                                                  |
+| **rank**          | Punteggio competitivo come in scacchi (granmaestro,maestro,maestro internazionale) nel gioco si usano i metalli come sistema di valutazione | {Gold 1, Platinum 2, Diamond 3, ...}                                       |
+| **date**          | La data in cui si è svolta la partita                                                                                                       | {Date in formato "DD-MM_YYYY"}                                             |
+| **agent**         | Il personaggio giocato in quella partita                                                                                                    | {Phoenix, Jett, Reyna, ...}                                                |
+| **map**           | La mappa in cui si è svolta la partita                                                                                                      | {Bind, Ascent, Haven, ...}                                                 |
+| **outcome**       | L'esito della partita (vittoria/sconfitta/pareggio)                                                                                         | {Win, Loss, Draw}                                                          |
+| **round_wins**    | Numero di round vinti                                                                                                                       | $\mathbb{N}$                                                               |
+| **round_losses**  | Numero di round persi                                                                                                                       | $\mathbb{N}$                                                               |
+| **kills**         | Numero di uccisioni di giocatori nemici                                                                                                     | $\mathbb{N}$                                                               |
+| **deaths**        | Numero di volte in cui si è stati uccisi dai nemici                                                                                         | $\mathbb{N}$                                                               |
+| **assists**       | Numero di assist (aiuto ai compagni nell' uccidere un nemico)                                                                               | $\mathbb{N}$                                                               |
+| **kdr**           | Rapporto uccisioni/morti calcolato con la formula $\frac{kills}{max\{1,death\}}$                                                            | {x ∈ ℝ                                                        x ≥ 0}       |                 |
+| **avg_dmg_delta** | Differenza media per round tra i danni inflitti e i danni subiti su tutti i round.                                                          | {x ∈ ℝ}                                                                    |
 | **headshot_pct**  | Percentuale di colpi che hanno colpito la testa del nemico (non include colpi mancati)                                                      | {x ∈ ℝ                                                        0 ≤ x ≤ 100} |                  |
-| **avg_dmg**       | Danno medio inflitto per round ai nemici                                                                                                    | {x ∈ ℝ                                                        x ≥ 0} |                          |
-| **acs**           | Punteggio di combattimento basato su danni, uccisioni e assist. Media su tutti i round, **non si conosce come viene calcolato.**            | {x ∈ ℝ                                                        x ≥ 0} |                          |
-| **num_frag**      | Posizione nella classifica della squadra in base al numero di uccisioni (1 = più uccisioni).                                                | {1, 2, ..., 5} dove 5 è il numero di giocatori nella squadra |
+| **avg_dmg**       | Danno medio inflitto per round ai nemici                                                                                                    | {x ∈ ℝ                                                        x ≥ 0}       |                          |
+| **acs**           | Punteggio di combattimento basato su danni, uccisioni e assist. Media su tutti i round, **non si conosce come viene calcolato.**            | {x ∈ ℝ                                                        x ≥ 0}       |                          |
+| **num_frag**      | Posizione nella classifica della squadra in base al numero di uccisioni (1 = più uccisioni).                                                | {1, 2, ..., 5} dove 5 è il numero di giocatori nella squadra               |
 
 ## Analisi Esplorativa sui Dati
 
@@ -235,12 +235,12 @@ Per questo ho deciso di effettuare le seguenti operazioni:
   - **Rimozione di Features Ridondanti**: `round_wins` e `round_losses` sono ridondanti rispetto all'`outcome`, `deaths` e `kills` sono ridondanti rispetto al `kdr`.
   - **Encoding delle Categorical Features**: ho deciso di utilizzare l'encoding one-hot per la feature categorica `agent` ed `outcome` però come vedremo successivamente regrediscono a features binarie.
   - **Taglio degli outliner**: ho deciso di usare il metodo [IQR](https://deeplearningitalia.com/outliers-nel-machine-learning-comprendere-il-loro-impatto-sullanalisi-dei-dati/#:~:text=Il%20metodo%20del%20range%20interquartile,pu%C3%B2%20essere%20rimosso%20dal%20dataset.) "taglio le due code della distribuzione di una feature in base ai quantili" per eliminare gli outliner su quelle feature che presentavano valori molto distanti dalla media, poichè possono influenzare negativamente i modelli.
-    - **motivazioni:** In un game **squilibrato** le statistiche di un giocatore possono essere molto alte o molto basse, ma questo non dipende dal giocatore ma dal fatto che la partita è squilibrata possibili cause (uno o più giocatori si sono disconnessi , uno o più giocatori dimostrano comportamenti lenosi sulla propria squadra)
+    - **motivazioni:** In un game **squilibrato** le statistiche di un giocatore possono essere molto alte o molto basse, ma questo non dipende dal giocatore ma dal fatto che la partita è squilibrata possibili cause (uno o più giocatori si sono disconnessi, uno o più giocatori dimostrano comportamenti lenosi sulla propria squadra)
   - **Normalizzazione delle Features**: I modelli come **SVM** che lavorano sulle distanze sono molto sensibili alla scala delle features, normalizzare le features porta molto spesso a un miglioramento dei risultati.
 
 ### Attuazione
 
-Il primo passo nel preprocessing è stato quello di visionare con oppurti grafici la distribuzione delle features.
+Il primo passo nel preprocessing è stato quello di visionare con opportuni grafici la distribuzione delle features.
 
 ---
 ![img.png](img/_general/frequency_distribution_stats.png)
@@ -316,11 +316,13 @@ Per affrontare il problema ho deciso di utilizzare il seguente approccio:
 
 ## Suddivisione dei Dati
 
-Il dataset post-preprocessing contava 900 record, ho deciso di usare una tecnica di k-fold cross validation con $k=10$ per suddividere i dati in training e test set.
-
 La k-fold cross validation è una tecnica che consiste nel dividere il dataset in k parti, addestrare il modello su k-1 parti e testarlo sulla parte rimanente, ripetendo l'operazione k volte.
 
-**Motivazione:** il dataset è molto piccolo ho voluto aumentare il k a 10 per porre più enfasi sulla fase di training. Ho provato a usare k = 5 **thumb rule** ma i risultati erano sensibilmente peggiori.   
+Il dataset post-preprocessing conta 900 record, ho deciso di usare una tecnica di $k-fold$ cross validation con $k=10$ per una iniziale fase di tuning di iperparametri.
+
+Successivamente ho addestrato i modelli come specificato nella fase di addestramento e test con una seconda $k-fold$ cross validation con $k=10$.
+
+**Motivazione:** il dataset è molto piccolo ho voluto aumentare il k a 10, ho usato k = 5 **thumb rule** ma i risultati erano sensibilmente peggiori. Aumentare $k$ vuol dire porre enfasi sulla fase di training.
 
 
 ## Scelta dei Modelli
@@ -337,7 +339,7 @@ Ho scelto di utilizzare i seguenti modelli per la classificazione:
   - **Random Forest**: è un modello di classificazione che si basa su un insieme di alberi decisionali è usato perchè molte volte gli alberi decisionali sono molto sensibili ai dati.
   - **Rete Neurale**: è un modello di classificazione che si basa su un insieme di neuroni e layer.
 
-### motivazioni e pareri personali 
+### Motivazioni e pareri personali 
 
 A priori non si può sapere quale modello sarà il migliore per il nostro problema, però voglio comunque fare delle considerazioni personali:
 
@@ -496,7 +498,7 @@ La Logistic Regression è un modello utilizzato principalmente per problemi di c
   - la funzione obbiettivo con il parametro $l2$ diventa:
     $$
     l2 =
-    \text{Minimizzare: } \frac{1}{n} \sum_{i=1}^{n} \text{log-loss}(y_i, \hat{y}_i) + \frac{\lambda}{2} ||w||_2^2
+    \text{Minimizzare:} \frac{1}{n} \sum_{i=1}^{n} \text{log-loss}(y_i, \hat{y}_i) + \frac{\lambda}{2} ||w||_2^2
     $$
 
 - **`C`**: Penalizzatore.
@@ -647,7 +649,7 @@ Possiamo comprendere meglio le relazioni tra le variabili, capire quali variabil
 
 Per affrontare il problema ho deciso di usare l'algoritmo di ricerca Hill Climb, che è un algoritmo di ricerca locale per massimizzare la funzione obbiettivo che nel nostro caso è il **K2 score.**
 
-Ho usato il **K2score**, perchè sono riuscito a ottenere un risultato migliore rispetto al metodo di score BIC,BIC mi forniva un DAG con 2 nodi.
+Ho usato il **K2score**, perchè sono riuscito a ottenere un risultato migliore rispetto al metodo di score BIC, BIC mi forniva un DAG con 2 nodi.
 
 ![bayesian_network](img/_general/bayes_structure.png)
 
@@ -656,11 +658,11 @@ Ho usato il **K2score**, perchè sono riuscito a ottenere un risultato migliore 
 
 La struttura del modello è molto interessante, possiamo vedere che:
 
-- l'`acs` che è un indicatore medio è l'unica foglia, il suo metodo di calcolo è sconosciuto poichè propietario di Riot Games ha molto senso che sia l'unica foglia poichè rappresenta un indice medio di valutazione.
+- l'`acs` che è un indicatore medio è l'unica foglia, il suo metodo di calcolo è sconosciuto poichè proprietario di Riot Games ha molto senso che sia l'unica foglia poichè rappresenta un indice medio di valutazione.
 - l' `outcome` dipende principalmente dal kdr, logicamente ha senso poichè se un giocatore ha un kdr alto vuol dire che ha eliminato più nemici di quante volte sia morto, il che implica che le probabilità di vittoria aumentano.
 - Il `personaggio` influenza gli `assists` è perfetto poichè un personaggio che ha funzioni di supporto aiuta i compagni a eliminare i nemici uno che ha funzioni di attacco elimina i nemici in maniera avida (senza aiutare i compagni).
-- l' `headshot_pct` è l'unico valore che influenza solo l'acs, la motivazione è che i colpi alla testa non danno informazioni su quante volte un giocatore ha eliminato un nemico o quanti assists ha fatto, un giocatore porterebbe avere 70% di headshot_pct, ma avere poche kills o viceversa poca **headshot_pct**,ma molte kills si pensa a un fucile a pompa e si immagini la rosa è facile comprendere che mediamente non si fanno molti headshot.
-- tutte le altre relazioni inflenzano l'acs che come abbiamo detto ha molto senso poichè è un indice medio di valutazione.
+- l' `headshot_pct` è l'unico valore che influenza solo l'acs, la motivazione è che i colpi alla testa non danno informazioni su quante volte un giocatore ha eliminato un nemico o quanti assists ha fatto, un giocatore porterebbe avere 70% di headshot_pct, ma avere poche kills o viceversa poca **headshot_pct**, ma molte kills si pensa a un fucile a pompa e si immagini la rosa è facile comprendere che mediamente non si fanno molti headshot.
+- tutte le altre relazioni influenzano l'acs che come abbiamo detto ha molto senso poichè è un indice medio di valutazione.
 
 Ho deciso di generare degli esempi per vedere se il modello è coerente con la realtà.
 
@@ -681,114 +683,223 @@ L' immagine mostra delle statistiche di un altro giocatore con rank simile al gi
 
 ![img.png](img/_general/wooeiz.png)
 
-Non ho testato il modello in larga scala poichè sono interessato solo alle relazioni fra le variabili però facendo previsioni sullo stesso player da cui proviene la foto (stesso rank e stessi agenti utilizzati) ho ottenuto un risultato eccelente.
+Non ho testato il modello in larga scala poichè sono interessato solo alle relazioni fra le variabili però facendo previsioni sullo stesso player da cui proviene la foto (stesso rank e stessi agenti utilizzati) ho ottenuto un risultato eccellente.
 
 **La prima partita è vinta la seconda e la terza invece sono perse.**
 ![img.png](img/_general/rank_refactor.png)
 
 ```python
-  data = pd.DataFrame({
-  'agent': [1,0,1],
-  'kdr': [0.9,0.8,0.4],
-  'headshot_pct': [19,29,22],
-  })
-  
-  probability_agent = model.predict(data)
-  print("Predicted probabilities:\n", probability_agent)
+data = pd.DataFrame({
+'agent': [1,0,1],
+'kdr': [0.9,0.8,0.4],
+'headshot_pct': [19,29,22],
+})
+
+probability_agent = model.predict(data)
+print("Predicted probabilities:\n", probability_agent)
 ```
 
 ![img.png](./img/_general/carbone.png)
 
-In conclusione gli assist non vengono predetti correttamente, ma il modello è molto acccurato sia nel predire l'outcome che l'acs.
+In conclusione gli assist non vengono predetti correttamente, ma il modello è molto accurato sia nel predire l'outcome che l'acs.
 
 Questa parte del progetto è molto interessate, poichè si vuol far notare come si possano traslare le statistiche di un player su un altro, questa intuizione deve essere verificata su larga scala, però intuitivamente come descritto prima il rank non influenza le prestazioni di un giocatore, se i giocatori competono con lo stesso livello di abilità le statistiche nella media saranno simili ergo il si può creare un modello che predica mediamente le statistiche di un gruppo di giocatori con lo stesso livello di abilità e usarlo come base per valutare le prestazioni di un giocatore.
 
 # Capitolo 4 - Rappresentazione Relazionale
 
-Possiamo perciò concludere il progetto rappresentando le informazioni apprese sotto forma di una knowledge base in Prolog.
+[prolog](https://lpn.swi-prolog.org/lpnpage.php?pagetype=html&pageid=lpn-htmlse1#:~:text=Knowledge%20Base%201%20(KB1)%20is,woman(mia).)
 
-Usiamo il prolog un linguaggio di programmazione logica basato su regole e fatti:
+Possiamo perciò concludere il progetto usando una knowledge base per inferire conoscenza dai dati.
 
-- **Fatti**: Affermazioni vere nel dominio del problema.
-- **Regole**: sono le relazioni tra fatti
+Usiamo il prolog un linguaggio di programmazione logica:
 
+1. il dominio che vogliamo rappresentare è una carriera di un giocatore di Valorant.
+2. definiamo come individui le partite giocate dal giocatore.
+3. definiamo le regole:
+   - `prec(X,Y)` una partita X è precedente a una partita Y se X è stata giocata prima di Y.
+   - `better(X,Y)` una partita X è stata giocata meglio di una partita Y se X ha un ACS maggiore di Y.
+   - `newbie(X)` se la partita X è una delle prime partite giocate dal giocatore.
+   - `high_kdr(X)` se la partita X ha un kdr maggiore di 1.5
+   - `high_headshot(X)` se la partita X ha un headshot_pct maggiore di 30.
+   - `high_assists(X)` se la partita X ha un numero di assists maggiore di 5.
+   - `astonishing(X):` una partita è stata valutata come straordinaria.
+   - `normal(X):` una partita è stata valutata come normale
+   - `bad(X):` una partita è stata valutata come negativa.
 
 ## Costruzione della knowledge base
 
-Ho definito un fatto chiamato `stat` ogni `stat` è composto dalle statistiche di un game.
-Poichè abbiamo visto che la variabile **acs** è dipendente da tutte le altre ci concentreremo su quest' ultima.
+Vogliamo ragionare su una partita di Valorant, usare la knowledge base per fare inferenze sulle statistiche di una partita.
 
-Ho definito le seguenti regole:
+Ci poniamo quindi il seguente obbiettivo:
 
-```python
+- Data una base di conoscenza con fatti relativi alle statistiche di una partita, e regole che descrivono relazioni tra statistiche, vogliamo fornire una valutazione al giocatore.
 
-  with open(output_file, "w") as f:
-    # Scrittura dei fatti
-    f.write("% Fatti: rappresentazione delle statistiche per partita\n")
-    for row in data:
-      f.write(f"stat({row['game_id']}, '{row['agent']}', {row['kdr']}, {row['assists']}, "
-              f"{row['headshot_pct']}, {row['acs']}, {row['outcome']}, {row['ann']}).\n")
-  
-    # Scrittura delle regole
-    f.write("\n% Regola: verifica se una partita è stata vinta\n")
-    f.write("win(GameID) :- stat(GameID, _, _, _, _, _, 1, _).\n")
-  
-    f.write("\n% Regola: verifica se l'esito della partita e la previsione ANN sono concordanti\n")
-    f.write("concord(GameID) :- stat(GameID, _, _, _, _, _, Outcome, Outcome).\n")
-  
-    f.write("\n% Regola: verifica se tutte le partite con ACS maggiore di un valore sono vinte\n")
-    f.write("all_win_above_acs(ACSValue) :- \\+ (stat(GameID, _, _, _, _, ACS, Outcome, _), ACS > ACSValue, Outcome \\= 1).\n")
-  
-    f.write("\n% Regola: verifica se la maggior parte delle partite con ACS maggiore di un valore sono vinte\n")
-    f.write("""\
-                  most_win_above_acs(ACSValue) :-
-                      findall(GameID, (stat(GameID, _, _, _, _, ACS, 1, _), ACS > ACSValue), Wins),
-                      findall(GameID, (stat(GameID, _, _, _, _, ACS, 0, _), ACS > ACSValue), Loses),
-                      length(Wins, WinCount),
-                      length(Loses, LosesCount),
-                      WinCount > LosesCount.
-          """)
-  
-    f.write("\n% Regola: verifica se la maggior parte delle partite con ACS maggiore di un valore sono state predette come vittorie\n")
-    f.write("""\
-                    most_win_above_acs_ann(ACSValue) :-
-                        findall(GameID, (stat(GameID, _, _, _, _, ACS, _, 1), ACS > ACSValue), Wins),
-                        findall(GameID, (stat(GameID, _, _, _, _, ACS, _, 0), ACS > ACSValue), Loses),
-                        length(Wins, WinCount),
-                        length(Loses, LosesCount),
-                        WinCount > LosesCount.
-            """)
+## Fatti e regole
 
+In questo esempio, la base di conoscenza rappresenta delle partite di gioco (presumibilmente per un gioco come *Valorant*). Ogni partita è associata a vari attributi come `game_id`, `agent`, `kdr`, `assists`, `headshot_pct`, `acs` e `outcome`.
+
+### Fatti:
+Un **fatto** in Prolog è una dichiarazione di qualcosa che è vero. In questo caso, un fatto è una rappresentazione di una partita specifica nel dataset. Ogni partita è rappresentata come un fatto nel formato:
+
+```prolog
+partita(game_id, agent, kdr, assists, headshot_pct, acs, outcome).
 ```
 
-## Esempi di Query
+Ecco come vengono costruiti i fatti nel codice:
 
-```python
-print(bool(list(prolog.query("win(22)"))))
-print(bool(list(prolog.query("concord(20)"))))
-print(bool(list(prolog.query("concord(22)"))))
-print(bool(list(prolog.query("all_win_above_acs(350)"))))
-print(bool(list(prolog.query("most_win_above_acs(200)"))))
-print(bool(list(prolog.query("most_win_above_acs_ann(200)"))))
-print(bool(list(prolog.query("most_win_above_acs(150)"))))
-print(bool(list(prolog.query("most_win_above_acs_ann(150)"))))
-print(bool(list(prolog.query("most_win_above_acs(170)"))))
-print(bool(list(prolog.query("most_win_above_acs_ann(170)"))))
+1. **`game_id`**: Un identificatore univoco per la partita, ad esempio `g1`.
+2. **`agent`**: L'agente o il personaggio utilizzato nella partita (ad esempio, "Chyper").
+3. **`kdr`**: Il KDR (Kill-Death Ratio) della partita, che rappresenta il numero di uccisioni rispetto al numero di morti.
+4. **`assists`**: Il numero di assist effettuati nella partita.
+5. **`headshot_pct`**: La percentuale di colpi alla testa.
+6. **`acs`**: L'ACS (Average Combat Score) della partita, un punteggio che misura l'efficacia di un giocatore in combattimento.
+7. **`outcome`**: Il risultato della partita, che può essere "win" (vittoria) o "loss" (sconfitta).
 
->>> output
-
-True # win(22)
-False # concord(20)
-True # concord(22)
-True # all_win_above_acs(350)
-True # most_win_above_acs(200)
-False # most_win_above_acs_ann(200)
-False # most_win_above_acs(150)
-True # most_win_above_acs_ann(150)
-False # most_win_above_acs(170)
+Un esempio di fatto potrebbe essere:
+```prolog
+partita(g1, 'Chyper', 1.2, 5, 30, 250, 'win').
 ```
 
-La predizione rispetto all'outcome reale si distacca per `acs` vicino a 170 che è perfetto poichè un valore medio di prestazioni per molti giocatori.
+Nella partita identificata da `g1` giocata con l'agente *Chyper*, il giocatore ha avuto un KDR di 1.2, ha effettuato 5 assist, ha avuto il 30% di colpi alla testa, ha ottenuto un ACS di 250 e ha vinto la partita.
+
+### Regole:
+Una **regola** in Prolog è una dichiarazione che descrive una relazione tra fatti. Le regole usano una combinazione di fatti e altre regole per dedurre nuove informazioni. Ogni regola ha una condizione che deve essere vera affinché una conclusione (la parte dopo `:-`) sia vera.
+
+1. **Regola `prec(X, Y)`**:
+   La regola `prec(X, Y)` afferma che la partita `X` è precedente alla partita `Y` se il `game_id` di `X` è inferiore a quello di `Y`.
+
+   ```prolog
+   prec(X, Y) :- partita(X, _, _, _, _, _, _), partita(Y, _, _, _, _, _, _), sub_atom(X, 1, _, 0, ID_X), sub_atom(Y, 1, _, 0, ID_Y), atom_number(ID_X, Num_X), atom_number(ID_Y, Num_Y), Num_X < Num_Y.
+   ```
+   Questo significa che se esistono due partite `X` e `Y`, e se l'ID del gioco `X` è numericamente minore di quello di `Y`, allora `X` è considerata precedente a `Y`.
+
+2. **Regola `better(X, Y)`**:
+   La regola `better(X, Y)` afferma che la partita `X` è migliore della partita `Y` se l'ACS di `X` è maggiore di quello di `Y`.
+
+   ```prolog
+   better(X, Y) :- partita(X, _, _, _, _, ACS_X, _), partita(Y, _, _, _, _, ACS_Y, _), ACS_X > ACS_Y.
+   ```
+
+   In altre parole, se l'ACS di `X` è superiore a quello di `Y`, allora `X` è considerata "migliore" di `Y`.
+
+3. **Regola `not_newbie(X)`**:
+   La regola `not_newbie(X)` afferma che il giocatore non è più inesperto nel gioco se ha fatto più di 50 partite.
+
+   ```prolog
+   not_newbie(X) :- partita(X, _, _, _, _, _, _), sub_atom(X, 1, _, 0, ID_X), atom_number(ID_X, Num_X), Num_X > 50.
+   ```
+
+   Questo significa che le partite con un `game_id` maggiore di 50 sono considerate come partite in cui il giocatore ha un minimo di esperienza nel gioco.
+
+4. **Regole per condizioni specifiche (`high_kdr`, `high_headshot`, `high_assists`)**:
+
+  - **Regola `high_kdr(X)`**: Determina se una partita ha un KDR maggiore di 1.5.
+    ```prolog
+    high_kdr(X) :- partita(X, _, KDR, _, _, _, _), KDR > 1.5.
+    ```
+
+  - **Regola `high_headshot(X)`**: Determina se una partita ha una percentuale di colpi alla testa maggiore di 25.
+    ```prolog
+    high_headshot(X) :- partita(X, _, _, _, Headshot_Pct, _, _), Headshot_Pct > 25.
+    ```
+
+  - **Regola `high_assists(X)`**: Determina se una partita ha un numero di assist maggiore di 5.
+    ```prolog
+    high_assists(X) :- partita(X, _, _, Assists, _, _, _), Assists > 5.
+    ```
+
+5. **Regola `astonishing(X)`**:
+   La regola `astonishing(X)` determina se una partita è "straordinaria" (astonishing). Una partita è considerata straordinaria se:
+  - Non è una delle prime partite giocate nella carriera del giocatore ```not_newie(X).```
+  - Ha almeno una delle seguenti condizioni: un KDR alto, una percentuale di colpi alla testa alta o un numero elevato di assist.
+  - Ha una percentuale di partite precedenti peggiori di almeno il 75%.
+
+   ```prolog
+   astonishing(X) :-  not_newbie(X), (high_kdr(X); high_headshot(X); high_assists(X)),
+                      findall(Y, (prec(Y, X), better(X, Y)), BetterGames),
+                      length(BetterGames, CountBetter),
+                      findall(Y, prec(Y, X), PreviousGames),
+                      length(PreviousGames, CountPrevious),
+                      CountPrevious > 0,
+                      Ratio is CountBetter / CountPrevious,
+                      Ratio >= 0.75.
+   ```
+
+   In questa regola, `findall/3` raccoglie tutte le partite precedenti a `X` che sono peggiori, e la partita è considerata straordinaria se la percentuale di tali partite peggiori è superiore o uguale al 75%.
+
+6. **Regole `normal(X)` e `bad(X)`**:
+   Le regole `normal(X)` e `bad(X)` determinano se una partita è considerata normale o negativa (rispettivamente). Funzionano in modo simile a `astonishing(X)`, ma con diverse soglie:
+
+  - **Normal**: Se la partita è migliore del 25% ma inferiore al 75% delle partite precedenti.
+  - **Bad**: Se la partita è migliore di meno del 25% delle partite precedenti.
+
+   ```prolog
+   normal(X) :-  not_newbie(X), findall(Y, (prec(Y, X), better(X, Y)), BetterGames),
+                 length(BetterGames, CountBetter),
+                 findall(Y, prec(Y, X), PreviousGames),
+                 length(PreviousGames, CountPrevious),
+                 CountPrevious > 0,
+                 Ratio is CountBetter / CountPrevious,
+                 Ratio >= 0.25, Ratio < 0.75.
+
+   bad(X) :-  not_newbie(X), findall(Y, (prec(Y, X), better(X, Y)), BetterGames),
+              length(BetterGames, CountBetter),
+              findall(Y, prec(Y, X), PreviousGames),
+              length(PreviousGames, CountPrevious),
+              CountPrevious > 0,
+              Ratio is CountBetter / CountPrevious,
+              Ratio < 0.25.
+   ```
+
+- I **fatti** descrivono i dettagli delle partite, come il `game_id`, l'agente, il KDR, e altri attributi specifici della partita.
+- Le **regole** utilizzano i fatti per inferire nuove informazioni, come determinare se una partita è "straordinaria" o "normale" in base ai valori delle partite precedenti, e confrontando il KDR, gli assist, o le percentuali di headshot.
+
+
+
+## Esempi di query
+
+Si riportano 3 partite per valutazione (elenco non esaustivo) si noti come le statistiche della partita influenzano la valutazione.
+
+```
+Astonishing games:
+
++-----------+---------+-------+-----------+-------------+-------+-----------+
+|   Game ID | Agent   |   KDR |   Assists |   Headshot% |   ACS | Outcome   |
++===========+=========+=======+===========+=============+=======+===========+
+|        62 | Cypher  |   1.5 |         6 |           5 |   258 | Win       |
++-----------+---------+-------+-----------+-------------+-------+-----------+
+|        64 | Cypher  |   1.5 |         8 |           7 |   248 | Win       |
++-----------+---------+-------+-----------+-------------+-------+-----------+
+|        69 | Cypher  |   1.2 |         6 |           8 |   238 | Win       |
++-----------+---------+-------+-----------+-------------+-------+-----------+
+
+Normal games:
++-----------+---------+-------+-----------+-------------+-------+-----------+
+|   Game ID | Agent   |   KDR |   Assists |   Headshot% |   ACS | Outcome   |
++===========+=========+=======+===========+=============+=======+===========+
+|        51 | Cypher  |   1.3 |         9 |          10 |   211 | Win       |
++-----------+---------+-------+-----------+-------------+-------+-----------+
+|        52 | Cypher  |   0.8 |         6 |           8 |   172 | Loss      |
++-----------+---------+-------+-----------+-------------+-------+-----------+
+|        53 | Cypher  |   0.9 |         8 |           9 |   212 | Win       |
++-----------+---------+-------+-----------+-------------+-------+-----------+
+
+Bad games:
++-----------+---------+-------+-----------+-------------+-------+-----------+
+|   Game ID | Agent   |   KDR |   Assists |   Headshot% |   ACS | Outcome   |
++===========+=========+=======+===========+=============+=======+===========+
+|        54 | Cypher  |   0.6 |         1 |          20 |   115 | Loss      |
++-----------+---------+-------+-----------+-------------+-------+-----------+
+|        58 | Cypher  |   0.6 |         3 |          12 |   132 | Loss      |
++-----------+---------+-------+-----------+-------------+-------+-----------+
+|        65 | Cypher  |   0.7 |         5 |          12 |    89 | Win       |
++-----------+---------+-------+-----------+-------------+-------+-----------+
+```
+
+### Possibili Upgrade
+
+Questa knowledge base è una demo può essere utile per valutare le prestazioni di un giocatore, ma la piena potenzialità si può raggiungere affiancandola da dei modelli che fanno predizioni sulle statistiche di un giocatore e usare la knowledge base per valutare le prestazioni.
+
 
 # Capitolo 5 - Conclusioni
 
@@ -798,7 +909,7 @@ Posso concludere di aver ottenuto dei risultati ottimi, sono rimasto molto soddi
 
 Bisogna ammettere che non mi aspettavo la dipendenza del `kdr` sull' `outcome` e l' `acs` su tutte le altre variabili, ma dopo le eventuali riflessioni abbiamo motivazioni valide per queste relazioni.
 
-Riot mette a disposizione la possibilità di contattare i devolper presentando il progetto e l' idea di un possibile sviluppo futuro sarebbe fattibile.
+Riot mette a disposizione la possibilità di contattare i developer presentando il progetto e l' idea di un possibile sviluppo futuro sarebbe fattibile.
 
 ### Possibili Sviluppi Futuri
 
