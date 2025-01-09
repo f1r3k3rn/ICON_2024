@@ -18,7 +18,7 @@
 
 
 - **Capitolo 2 - Apprendimento Supervisionato**
-  - [Approccio](#approccio-1)
+  - [Approccio](#approccio) 
   - [Suddivisione dei Dati](#suddivisione-dei-dati)
   - [Scelta dei Modelli](#scelta-dei-modelli)
   - [Tuning degli Iperparametri](#tuning-degli-iperparametri)
@@ -41,7 +41,9 @@
 
 - **Capitolo 4 - Rappresentazione Relazionale**
   - [Costruzione della Knowledge Base](#costruzione-della-knowledge-base)
+  - [Fatti e Regole](#fatti-e-regole)
   - [Esempi di query](#esempi-di-query)
+  - [Upgrade](#possibili-upgrade)
 
 
 - **Capitolo 5 - Conclusioni**
@@ -139,7 +141,6 @@ C:.
 │   └───_general 
 ├───pre_processing # funzioni per il preprocessing
 ├───prolog # rappresentazione relazionale
-│   └───pl_files # .pl
 └───supervised_training #apprendimento supervisionato
 ```
 **Attenzione:**
@@ -709,22 +710,7 @@ Questa parte del progetto è molto interessate, poichè si vuol far notare come 
 
 [prolog](https://lpn.swi-prolog.org/lpnpage.php?pagetype=html&pageid=lpn-htmlse1#:~:text=Knowledge%20Base%201%20(KB1)%20is,woman(mia).)
 
-Possiamo perciò concludere il progetto usando una knowledge base per inferire conoscenza dai dati.
-
-Usiamo il prolog un linguaggio di programmazione logica:
-
-1. il dominio che vogliamo rappresentare è una carriera di un giocatore di Valorant.
-2. definiamo come individui le partite giocate dal giocatore.
-3. definiamo le regole:
-   - `prec(X,Y)` una partita X è precedente a una partita Y se X è stata giocata prima di Y.
-   - `better(X,Y)` una partita X è stata giocata meglio di una partita Y se X ha un ACS maggiore di Y.
-   - `newbie(X)` se la partita X è una delle prime partite giocate dal giocatore.
-   - `high_kdr(X)` se la partita X ha un kdr maggiore di 1.5
-   - `high_headshot(X)` se la partita X ha un headshot_pct maggiore di 30.
-   - `high_assists(X)` se la partita X ha un numero di assists maggiore di 5.
-   - `astonishing(X):` una partita è stata valutata come straordinaria.
-   - `normal(X):` una partita è stata valutata come normale
-   - `bad(X):` una partita è stata valutata come negativa.
+Possiamo perciò concludere il progetto usando una knowledge base per inferire conoscenza dai dati usando il prolog un linguaggio di programmazione logica.
 
 ## Costruzione della knowledge base
 
