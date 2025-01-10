@@ -39,7 +39,7 @@
     - [Pareri e conclusioni](#pareri-e-conclusioni)
 
 
-- **Capitolo 4 - Rappresentazione Relazionale**
+- **Capitolo 4 - Knowledge Base**
   - [Costruzione della Knowledge Base](#costruzione-della-knowledge-base)
   - [Fatti e Regole](#fatti-e-regole)
   - [Esempi di query](#esempi-di-query)
@@ -110,7 +110,7 @@ Per fare ciò ho pensato a un task che potesse essere utile per l'azienda e affr
 Sia $SR$ un vettore di dimensione $n$ dove $n$ è il numero di round giocati nella partita $m$.
 $SR[i]$ contiene le statistiche comulative del giocatore $p$ al round $i$.
 
-- **Task target in questo progetto**: Dato $SR[n]$ determinare se la partita $m$ è vinta o persa. 
+- **Task target in questo progetto**: Dato $SR[n]$ fornire un feedback al giocatore. 
 
 - **[NON REALIZZATO] estensione finale**: feedback in real-time $\forall{i}$ determinare se la partita $m$ è più prona alla vittoria o alla sconfitta in base a $SR[i]$.
 
@@ -122,7 +122,7 @@ Ho deciso di suddividere il progetto in tre sub-task:
 
 - **Sub_Task 2**: Apprendimento della struttura - Apprendere la struttura del problema e come le varie statistiche dipendo l'una dall'altra è un informazione cruciale per capire quali statistiche sono più importanti per la predizione dell'outcome.
 
-- **Sub_Task 3**: Rappresentazione e Ragionamento Relazionale - creare una knowledge base con la quale si possa fare inferenza sulle statistiche di un giocatore.
+- **Sub_Task 3**: Creazione di una knowledge base - Creare una knowledge base con la quale si possa fare inferenza sulle partite di un giocatore fornendo una valutazione.
 
 **Production_key**: Avere una production key consente di avere a disposizione uno spettro più ampio di dati e di poter fare analisi più approfondite.
 
@@ -706,11 +706,15 @@ In conclusione gli assist non vengono predetti correttamente, ma il modello è m
 
 Questa parte del progetto è molto interessate, poichè si vuol far notare come si possano traslare le statistiche di un player su un altro, questa intuizione deve essere verificata su larga scala, però intuitivamente come descritto prima il rank non influenza le prestazioni di un giocatore, se i giocatori competono con lo stesso livello di abilità le statistiche nella media saranno simili ergo il si può creare un modello che predica mediamente le statistiche di un gruppo di giocatori con lo stesso livello di abilità e usarlo come base per valutare le prestazioni di un giocatore.
 
-# Capitolo 4 - Rappresentazione Relazionale
+# Capitolo 4 - Knowledge Base
 
 [prolog](https://lpn.swi-prolog.org/lpnpage.php?pagetype=html&pageid=lpn-htmlse1#:~:text=Knowledge%20Base%201%20(KB1)%20is,woman(mia).)
 
 Possiamo perciò concludere il progetto usando una knowledge base per inferire conoscenza dai dati usando il prolog un linguaggio di programmazione logica.
+
+Usiamo l'osservazione fatta nel capitolo 3 dove l' ACS è un valore che viene influenzato da tutte le altre statistiche per creare delle relazioni ad-hoc.
+
+Potrei unire le predizioni fatte dai modelli nel capitolo 2 con le informazioni ottenute e ragionando su di esse mettendo a confronto valutazioni e predizioni però non ho abbastanza dati per fare un confronto significativo.
 
 ## Costruzione della knowledge base
 
