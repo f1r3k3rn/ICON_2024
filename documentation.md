@@ -24,7 +24,8 @@ csl: apa.csl
 # VALAI - Progetto Icon 2024/2025
 
 
-### Porcelli andrea mat. [775736]
+### Porcelli Andrea mat. [775736]
+### a.porcelli34@studenti.uniba.it
 ### [github](https://github.com/f1r3k3rn/ICON_2024)
 
 ## Tabella dei Contenuti
