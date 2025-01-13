@@ -1,6 +1,31 @@
+---
+title: "VALAI - Progetto Icon 2024/2025"
+author: "Porcelli Andrea [775736]"
+date: "2025-01-13"
+documentclass: scrartcl
+linkcolor: blue
+colorlinks: true
+geometry: a4paper
+output: pdf
+titlepage: true
+titlepage-color: 0076a8
+titlepage-text-color: ffffff
+titlepage-rule-color: ffffff
+titlepage-rule-height: 2
+fontfamily: libertine
+fontsize: 12pt
+mainfont: "Times New Roman"  # Solo se usi xelatex o lualatex
+sansfont: "Arial"
+monofont: "Courier New"
+bibliography: references.bib
+csl: apa.csl
+---
+
 # VALAI - Progetto Icon 2024/2025
 
-### Porcelli andrea mat. [775736] 
+
+### Porcelli andrea mat. [775736]
+### [github](https://github.com/f1r3k3rn/ICON_2024)
 
 ## Tabella dei Contenuti
 
@@ -61,7 +86,7 @@ Il progetto si pone con l'obiettivo di dimostrare le conoscenze acquisite durant
 
 ## Valorant
 
-[Valorant](https://it.wikipedia.org/wiki/Valorant) è un videogioco multiplayer competitivo della categoria FPS che coinvolge due squadre da cinque giocatori ciascuna.
+[Valorant](https://it.wikipedia.org/wiki/Valorant) è un videogioco multiplayer competitivo della categoria FPS, che coinvolge due squadre da cinque giocatori ciascuna.
 Le due squadre si affrontano in due tempi da 12 round ciascuno su una mappa, i due tempi sono chiamati attacco e difesa.
 Ogni giocatore può scegliere un personaggio, chiamato agente, che possiede abilità uniche ed ha a disposizione delle armi.
 
@@ -83,7 +108,7 @@ Le condizioni di vittoria sono due per ogni round:
 ## Definizione formale del gioco
 
 Ai fini del progetto, si vuole considerare un modello semplificato del gioco, facile da trattare e da analizzare pure da esterni.
-Una motivazione aggiuntiva è che considerare tutte le possibili features aumenterebbe notevolmente il grado di difficoltà rendendo il progetto inutilmente complesso.
+Una motivazione aggiuntiva è che considerare tutte le possibili features, aumenterebbe notevolmente il grado di difficoltà di progettazione e produzione, rendendo il progetto inutilmente complesso.
 
 Il gioco semplificato è definito come segue:
 
@@ -105,45 +130,47 @@ Ho deciso di avere due finalità per il progetto:
 - Dimostrare le competenze acquisite durante il corso di ICON.
 - Presentare una demo alla community di valorant per ottenere una API production key, così posso estendere il progetto.
 
-Per fare ciò ho pensato a un task che potesse essere utile per l'azienda e affrontarlo in maniera più semplice ai fini di dimostrare sia le competenze acquisite e sia la fattibilità del task.
+Ho pensato di suddividere il progetto in due task, uno che realizzerò adesso e uno esteso che dopo uno studio più approfondito cercherò di realizzare.
 
 Sia $SR$ un vettore di dimensione $n$ dove $n$ è il numero di round giocati nella partita $m$.
 $SR[i]$ contiene le statistiche comulative del giocatore $p$ al round $i$.
 
-- **Task target in questo progetto**: Dato $SR[n]$ fornire un feedback al giocatore. 
+- **Task target in questo progetto**: Dato $SR[n]$ fornire un feedback al giocatore e determinare se la partita $m$ è più prona alla vittoria o alla sconfitta.
 
-- **[NON REALIZZATO] estensione finale**: feedback in real-time $\forall{i}$ determinare se la partita $m$ è più prona alla vittoria o alla sconfitta in base a $SR[i]$.
-
-L' estensione a primo impatto può sembrare inutile e ridondante, ma si pensa che a fine game si può facilmente convertire il vettore delle predizioni in una scala di valutazione per il giocatore su quanto ha impattato sulla partita.
+- **[NON REALIZZATO] estensione finale**: $\forall{i}$ feedback in real-time e determinare se la partita $m$ è più prona alla vittoria o alla sconfitta in base a $SR[i]$.
 
 Ho deciso di suddividere il progetto in tre sub-task:
 
-- **Sub_Task 1**: Apprendimento Supervisionato - Invece di dare un feedback real-time, si vuole predire l'outcome di una partita in base alle statistiche di un giocatore. Quindi siamo di fronte a un problema di **classificazione binaria**. Questo sub-task è utile in quanto si potrà successivamente riadattare l'agente per il task esteso.
+- **Sub_Task 1**: Apprendimento Supervisionato - predire la vittoria o la sconfitta di una partita in base alle statistiche di un giocatore può essere interpretato come "quanto un giocatore ha influenzato positivamente o negativamente la partita".
 
-- **Sub_Task 2**: Apprendimento della struttura - Apprendere la struttura del problema e come le varie statistiche dipendo l'una dall'altra è un informazione cruciale per capire quali statistiche sono più importanti per la predizione dell'outcome.
+- **Sub_Task 2**: Apprendimento della struttura - Apprendere la struttura del problema e come le varie statistiche dipendo l'una dall'altra, è un informazione cruciale per capire quali sono più importanti per la predizione dell'outcome.
 
 - **Sub_Task 3**: Creazione di una knowledge base - Creare una knowledge base con la quale si possa fare inferenza sulle partite di un giocatore fornendo una valutazione.
+
+- **prodotto finale**: una base per un sistema di feedback per poi estenderlo a un "online judge".
 
 **Production_key**: Avere una production key consente di avere a disposizione uno spettro più ampio di dati e di poter fare analisi più approfondite.
 
 ## Struttura del Progetto
 ```
-C:.
-├───bayes # ragionamento probabilistico
-├───datasets # dataset pre e post processing
-├───displayers # funzioni per visualizzare i risultati
-├───img
-│   ├───ANN
-│   ├───DT
-│   ├───LR
-│   ├───RF
-│   ├───SVM
-│   └───_general 
-├───pre_processing # funzioni per il preprocessing
-├───prolog # rappresentazione relazionale
-└───supervised_training #apprendimento supervisionato
++---bayes # ragionamento probabilistico
++---datasets # dataset pre e post processing
++---displayers # funzioni per visualizzare i risultati
++---img
+|   +---ANN
+|   +---DT
+|   +---LR
+|   +---RF
+|   +---SVM
+|   \---_general
++---pre_processing # funzioni per il preprocessing
+|
++---prolog # knowledge base
+\---supervised_training # supervised learning
+
 ```
 **Attenzione:**
+
 - in ```main.py``` si trova il codice usato per i capitoli 1 - 2
 - in ```bayes/bayes.py``` si trova il codice usato per il capitolo 3
 - in ```prolog/prolog_dialog.py``` si trova il codice usato per il capitolo 4
@@ -156,31 +183,32 @@ Il dataset che ho scelto di utilizzare è stato trovato su [Kaggle](https://www.
 
 - Il dataset è composto da 1000 record e 19 Features.
 
-| **Feature**       | **Descrizione**                                                                                                                             | **Dominio**                                                                |
-|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
-| **game_id**       | Identificativo univoco per ogni partita                                                                                                     | {1..1000}                                                                  |
-| **episode**       | Equivalente al significato di stagioni (calcio)                                                                                             | {0..9}                                                                     |
-| **act**           | Finestre temporali su cui si divide un episodio                                                                                             | {1, 2, 3}                                                                  |
-| **rank**          | Punteggio competitivo come in scacchi (granmaestro,maestro,maestro internazionale) nel gioco si usano i metalli come sistema di valutazione | {Gold 1, Platinum 2, Diamond 3, ...}                                       |
-| **date**          | La data in cui si è svolta la partita                                                                                                       | {Date in formato "DD-MM_YYYY"}                                             |
-| **agent**         | Il personaggio giocato in quella partita                                                                                                    | {Phoenix, Jett, Reyna, ...}                                                |
-| **map**           | La mappa in cui si è svolta la partita                                                                                                      | {Bind, Ascent, Haven, ...}                                                 |
-| **outcome**       | L'esito della partita (vittoria/sconfitta/pareggio)                                                                                         | {Win, Loss, Draw}                                                          |
-| **round_wins**    | Numero di round vinti                                                                                                                       | $\mathbb{N}$                                                               |
-| **round_losses**  | Numero di round persi                                                                                                                       | $\mathbb{N}$                                                               |
-| **kills**         | Numero di uccisioni di giocatori nemici                                                                                                     | $\mathbb{N}$                                                               |
-| **deaths**        | Numero di volte in cui si è stati uccisi dai nemici                                                                                         | $\mathbb{N}$                                                               |
-| **assists**       | Numero di assist (aiuto ai compagni nell' uccidere un nemico)                                                                               | $\mathbb{N}$                                                               |
-| **kdr**           | Rapporto uccisioni/morti calcolato con la formula $\frac{kills}{max\{1,death\}}$                                                            | {x ∈ ℝ                                                        x ≥ 0}       |                 |
-| **avg_dmg_delta** | Differenza media per round tra i danni inflitti e i danni subiti su tutti i round.                                                          | {x ∈ ℝ}                                                                    |
-| **headshot_pct**  | Percentuale di colpi che hanno colpito la testa del nemico (non include colpi mancati)                                                      | {x ∈ ℝ                                                        0 ≤ x ≤ 100} |                  |
-| **avg_dmg**       | Danno medio inflitto per round ai nemici                                                                                                    | {x ∈ ℝ                                                        x ≥ 0}       |                          |
-| **acs**           | Punteggio di combattimento basato su danni, uccisioni e assist. Media su tutti i round, **non si conosce come viene calcolato.**            | {x ∈ ℝ                                                        x ≥ 0}       |                          |
-| **num_frag**      | Posizione nella classifica della squadra in base al numero di uccisioni (1 = più uccisioni).                                                | {1, 2, ..., 5} dove 5 è il numero di giocatori nella squadra               |
+| **Feature**                                          | **Descrizione**                                                                                                                             | **Dominio**                                                                               |
+|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| **game_id**                                          | Identificativo univoco per ogni partita                                                                                                     | {1..1000}                                                                                 |
+| **episode**                                          | Equivalente al significato di stagioni (calcio)                                                                                             | {0..9}                                                                                    |
+| **act**                                              | Finestre temporali su cui si divide un episodio                                                                                             | {1, 2, 3}                                                                                 |
+| **rank**                                             | Punteggio competitivo come in scacchi (granmaestro,maestro,maestro internazionale) nel gioco si usano i metalli come sistema di valutazione | {Gold 1,  Diamond 3, ..}                                                                  |
+| **date**                                             | La data in cui si è svolta la partita                                                                                                       | {Date "DD-MM_YYYY"}                                                                       |
+| **agent**                                            | Il personaggio giocato in quella partita                                                                                                    | {Phoenix, Jett, ..}                                                                       |
+| **map**                                              | La mappa in cui si è svolta la partita                                                                                                      | {Bind, Ascent, ..}                                                                        |
+| **outcome**                                          | L'esito della partita (vittoria/sconfitta/pareggio)                                                                                         | {Win, Loss, Draw}                                                                         |
+| **round_wins**                                       | Numero di round vinti                                                                                                                       | $\mathbb{N}$                                                                              |
+| **round_losses**                                     | Numero di round persi                                                                                                                       | $\mathbb{N}$                                                                              |
+| **kills**                                            | Numero di uccisioni di giocatori nemici                                                                                                     | $\mathbb{N}$                                                                              |
+| **deaths**                                           | Numero di volte in cui si è stati uccisi dai nemici                                                                                         | $\mathbb{N}$                                                                              |
+| **assists**                                          | Numero di assist (aiuto ai compagni nell' uccidere un nemico)                                                                               | $\mathbb{N}$                                                                              |
+| **kdr**                                              | Rapporto uccisioni/morti calcolato con la formula $\frac{kills}{max\{1,death\}}$                                                            | {x $\in{\mathbb{R}}$                                                         x ≥ 0}       |                 |
+| **avg_dmg_delta**                                    | Differenza media per round tra i danni inflitti e i danni subiti su tutti i round.                                                          | {x $\in{\mathbb{R}}$}                                                                     |
+| **headshot_pct**                                     | Percentuale di colpi che hanno colpito la testa del nemico (non include colpi mancati)                                                      | {x $\in{\mathbb{R}}$                                                         0 ≤ x ≤ 100} |                  |
+| **avg_dmg**                                          | Danno medio inflitto per round ai nemici                                                                                                    | {x $\in{\mathbb{R}}$                                                        x ≥ 0}        |                          |
+| **acs**                                              | Punteggio di combattimento fornito dal sistema di ranking. Media su tutti i round, **non si conosce come viene calcolato.**                 | {x $\in{\mathbb{R}}$                                                       x ≥ 0}         |                          |
+| **num_frag**                                         | Posizione nella classifica della squadra in base al numero di uccisioni (1 = più uccisioni).                                                | {1, 2, .., 5} dove 5 è il numero di giocatori nella squadra                               |
 
 ## Analisi Esplorativa sui Dati
 
 Qui di seguito sono riportate alcune statistiche sui dati raccolti:
+ 
 - **Le statistiche erano già state esplorate dalla community di kaggle [statistiche](https://www.kaggle.com/code/kanzeus/boost-this-valorant-player)**
 - Ho riportato di seguito solo quelle più utili per il progetto:
 
@@ -211,20 +239,22 @@ num_frag         0
 Duplicated values in data:0
 ```
 ### PERSONAGGIO - OUTCOME
-![img.png](img/_general/loss_win_draw_distribution.png)
+![agent_distribution](img/_general/loss_win_draw_distribution.png)
 
 ### KILLS / HEADSHOTS% AVG TIMELINE 
-![img_1.png](img/_general/time_series_headshots_kills.png)
+![timeline_headshot_kills](img/_general/time_series_headshots_kills.png)
 
 ### DISTRIBUZIONI 
 
-![img.png](img/_general/frequency_distribution_stats.png)
+![kaggle_distributions](img/_general/frequency_distribution_stats.png)
 
 ## Preprocessing
 
 Il preprocessing dei dati è una fase con molto valore ai fini di aumentare la qualità del modello, poichè essa è strettamente legata alla qualità dei dati.
 
 Per questo ho deciso di effettuare le seguenti operazioni:
+
+   
   - **Rimozione di Features che non danno informazioni utili ai fini della predizione dell' outcome**: `game_id`, `date`, `episode`, `act`, `rank`, `map`, `num_frag`.
     - `game_id` è un identificativo univoco per ogni partita, non ha senso pensare che sia una feature che influisce sull'outcome.
     - `date` la data non influisce sull'outcome.
@@ -243,13 +273,13 @@ Per questo ho deciso di effettuare le seguenti operazioni:
 
 Il primo passo nel preprocessing è stato quello di visionare con opportuni grafici la distribuzione delle features.
 
----
-![img.png](img/_general/frequency_distribution_stats.png)
 
----
+![kaggle_distributions](img/_general/frequency_distribution_stats.png)
+
+
 ![pre_stats](img/_general/Distribuzione_delle_statistiche_pre.png)
 
----
+
 
 **Nota: Si veda la presenza di valori estremi.**
 
@@ -259,11 +289,11 @@ Il primo passo nel preprocessing è stato quello di visionare con opportuni graf
   - L' `outcome` è stata trasformata in una feature binaria, in quanto se considerassi il pareggio avrei una motivazione analoga ad `agent`.
   - per `assists`, `kdr`, `headshot_pct`, `acs` ho usato il metodo IQR per eliminare gli outliner.
 
----
+
 
 ![post_stats](img/_general/Distribuzione_delle_statistiche_post.png)
 
----
+
 
 ```
 Valori NaN:
@@ -278,14 +308,14 @@ outcome         0
 Valori duplicati: 0
 ```
 
----
+
 ![win_loss_distribution](img/_general/win_loss_distribution_post.png)
 
----
 
-![distribuzioni](img/_general/distribuzioni_post.png)
 
----
+![distribuzioni_after_pre_processing](img/_general/distribuzioni_post.png)
+
+
 
 ### Risultato
 
@@ -319,11 +349,11 @@ Per affrontare il problema ho deciso di utilizzare il seguente approccio:
 
 La k-fold cross validation è una tecnica che consiste nel dividere il dataset in k parti, addestrare il modello su k-1 parti e testarlo sulla parte rimanente, ripetendo l'operazione k volte.
 
-Il dataset post-preprocessing conta 900 record, ho deciso di usare una tecnica di $k-fold$ cross validation con $k=10$ per una iniziale fase di tuning di iperparametri.
+ho deciso di usare una tecnica di $k-fold$ cross validation con $k=10$ per una iniziale fase di tuning di iperparametri su un tuning set.
 
-Successivamente ho addestrato i modelli come specificato nella fase di addestramento e test con una seconda $k-fold$ cross validation con $k=10$.
+Successivamente ho addestrato i modelli come specificato nella fase di addestramento e test con una seconda $k-fold$ cross validation con $k=10$ sul test set.
 
-**Motivazione:** il dataset è molto piccolo ho voluto aumentare il k a 10, ho usato k = 5 **thumb rule** ma i risultati erano sensibilmente peggiori. Aumentare $k$ vuol dire porre enfasi sulla fase di training.
+**Motivazione:** il dataset è molto piccolo ho voluto aumentare il k a 10. Ho usato k = 5 **thumb rule** ma i risultati erano sensibilmente peggiori. Aumentare $k$ vuol dire porre enfasi sulla fase di training.
 
 
 ## Scelta dei Modelli
@@ -331,27 +361,27 @@ Successivamente ho addestrato i modelli come specificato nella fase di addestram
 Ho scelto di utilizzare i seguenti modelli per la classificazione:
 
 - Usati perchè solidi con i problemi di classificazione binaria.
-  - **Support Vector Machine**: è un modello che cerca di trovare il miglior iperpiano che separa i dati in due classi è molto utilizzato per problemi di classificazione binaria.
-  - **Logistic Regression**: è un modello di classificazione che si basa su una funzione logistica pure questo modello ideale per classificazioni binarie.
+  - **Support Vector Machine**: è un modello che cerca di trovare il miglior iperpiano che separa i dati in due classi.
+  - **Logistic Regression**: è un modello di classificazione che si basa su una funzione logistica.
 
 
 - Usati perchè si vuole vedere se ci sono differenze significative tra i modelli.
   - **Albero Decisionale**: è un modello che costruisce un albero di decisione in base alle features.
-  - **Random Forest**: è un modello di classificazione che si basa su un insieme di alberi decisionali è usato perchè molte volte gli alberi decisionali sono molto sensibili ai dati.
+  - **Random Forest**: è un modello di classificazione che si basa su un insieme di alberi decisionali è usato perchè molte volte gli alberi decisionali sono molto sensibili ai dati e posso andare in overfitting.
   - **Rete Neurale**: è un modello di classificazione che si basa su un insieme di neuroni e layer.
 
 ### Motivazioni e pareri personali 
 
 A priori non si può sapere quale modello sarà il migliore per il nostro problema, però voglio comunque fare delle considerazioni personali:
 
-- `SVM` e `Logistic Regression` sono modelli nei quali ripongo più fiducia sulle performance in quanto sono ideati per affrontare questi problemi e sono efficienti ed efficaci.
+- `SVM` e `Logistic Regression` sono modelli nei quali ripongo più fiducia sulle performance in quanto sono ideati per affrontare questi problemi e tendenzialmente richiedono uno sforzo computazionale minore rispetto ad altri approcci.
 
 Invece: 
 
 - `DT` è molto sensibile ai dati e può presentare overfitting.
 - `RF` è un modello composto da più alberi decisionali per mitigare l' overfitting.
 
-- `DT e RF` funzionano molto bene quando le features sono facilmente separabili, ma nel caso di classificazione binaria soprattutto su delle features di input a valori continui non credo che siano i modelli migliori.
+- `DT e RF` funzionano molto bene quando le features sono facilmente separabili, ma nel caso di classificazione binaria, soprattutto su delle features di input a valori continui, non credo che siano i modelli migliori.
 
 - `ANN` non so cosa aspettarmi, è un modello complesso quindi solo il confronto ci dirà se è un modello adatto al nostro problema.
 
@@ -361,12 +391,10 @@ Per trovare i migliori iperparametri per i modelli ho utilizzato la tecnica di `
 
 Non è consigliabile utilizzare `Gridsearch` poichè stiamo ponendo un fattore computazionale enorme.
 
----
 
-```
-dato un modello con 3 iperparametri e 3 valori per ogni iperparametro, 
+Dato un modello con 3 iperparametri e 3 valori per ogni iperparametro, 
 il numero di combinazioni possibili è 3^3 = 27
-```
+
 formalizzabile come:
 
 $N_{combinazioni} = \prod_{i=1}^{n} |V_i|$
@@ -375,7 +403,7 @@ Questo fattore va moltiplicato con il tempo di addestramento del modello. Su Dat
 
 **Motivazioni**
 
-Nel Mio caso, ho scelto di porre più attenzione al confronto generale tra i modelli piuttosto che entrare nel dettaglio di ogni singolo includendo tutti gli iperparametri.
+Nel mio caso, ho scelto di porre più attenzione al confronto generale tra i modelli piuttosto che entrare nel dettaglio di ogni singolo includendo tutti gli iperparametri.
 
 
 ### Addestramento dei Modelli
@@ -407,7 +435,8 @@ Per ogni modello ho strutturato la seguente lista:
 - hyperparameters
 - risultati senza SMOTE
 - risultati con SMOTE
-- conclusioni personali
+
+ed infine conclusioni personali
 
 ### differenza SMOTE e NO SMOTE
 
@@ -420,7 +449,7 @@ smote is True the outcome distribution is
 0.0    459
 1.0    459
 ```
----
+
 ### **Decision Tree**
 
 Un decision tree è un modello usato per compiti di classificazione e regressione. È un albero binario, dove i nodi interni rappresentano le decisioni basate sui valori di una feature e le foglie rappresentano le previsioni finali.
@@ -428,7 +457,7 @@ Un decision tree è un modello usato per compiti di classificazione e regression
 
 **Hyperparameters**:
 
-- resources:
+- **`resources`**:
   - [gini impurity](https://www.youtube.com/watch?v=u4IxOk2ijSs)
 - **`criterion`**: Specifica la funzione per valutare la qualità delle suddivisioni.
   - `'gini'`: Imposta l'impurità di Gini come criterio.
@@ -439,26 +468,39 @@ Un decision tree è un modello usato per compiti di classificazione e regression
 - **`min_samples_split`**: Il numero minimo di campioni richiesti per dividere un nodo.
   - `[2, 5, 10]`: Valori più alti riducono il rischio di overfitting, ma aumentano il rischio di underfitting.
 
----
-#### NO SMOTE
 
-`Best params for decision_tree: {'criterion': 'log_loss', 'max_depth': 10, 'min_samples_split': 10}`
+```
+NO SMOTE
 
----
+Best params for decision_tree: 
+{
+ 'criterion': 'log_loss',
+ 'max_depth': 10, 
+ 'min_samples_split': 10
+}
+```
+
+
 
 ![DT_NOSMOTE](img/DT/DT1.png)
 
----
 
-#### SMOTE
+```
+SMOTE
 
-`Best params for decision_tree: {'criterion': 'gini', 'max_depth': 5, 'min_samples_split': 2}`
+Best params for decision_tree: 
+{
+    'criterion': 'gini',
+    'max_depth': 5,
+    'min_samples_split': 2
+}
+```
 
----
+
 
 ![DT_SMOTE](img/DT/DT2.png)
 
----
+
 
 ### **Random Forest**
 - **`n_estimators`**: Numero di alberi nella foresta.
@@ -467,31 +509,43 @@ Un decision tree è un modello usato per compiti di classificazione e regression
   - `[5, 10, 20]` analogo a decision tree.
 - **`min_samples_split`**: analogo al decision tree, determina il numero minimo di campioni necessari per dividere un nodo.
 
----
-#### NO SMOTE
+```
+NO SMOTE
 
-`Best params for random_forest: {'max_depth': 10, 'min_samples_split': 10, 'n_estimators': 100}`
+Best params for random_forest:
+{
+    'max_depth': 10,
+    'min_samples_split': 10,
+    'n_estimators': 100
+}
+```
 
----
+
 
 ![RF_NOSMOTE](img/RF/RF1.png)
 
----
-#### SMOTE
+```
+SMOTE
 
-`Best params for random_forest: {'max_depth': 10, 'min_samples_split': 10, 'n_estimators': 50}`
+Best params for random_forest: 
+{
+    'max_depth': 10,
+    'min_samples_split': 10,
+    'n_estimators': 50
+}
+```
 
----
+
 
 ![RF_SMOTE](img/RF/RF2.png)
 
----
+
 
 ### **Logistic Regression**
 
 La Logistic Regression è un modello utilizzato principalmente per problemi di classificazione binaria, usa una squashed function chiamata sigmoide per mappare i valori da uno spazio multi-dimensionale in un intervallo $[0,1]$ in $\mathbb{R}$.
 
-- resources:
+- **`resources`**:
   - [logistic regression](https://www.geeksforgeeks.org/understanding-logistic-regression/)
 
 - **`penalty`**: Specifica il tipo di regolarizzazione applicata.
@@ -510,33 +564,49 @@ La Logistic Regression è un modello utilizzato principalmente per problemi di c
 - **`max_iter`**: Numero massimo di iterazioni per la convergenza.
   - `[100000, 150000]` 
 
-**Motivazioni**: ho usato la regolarizzazione $l2$ perchè la $l1$ mi causava problemi di convergenza.
 
----
 
-#### NO SMOTE
-`Best params for logistic_regression: {'C': 10, 'max_iter': 100000, 'penalty': 'l2', 'solver': 'saga'}`
+```
+NO SMOTE
 
----
+Best params for logistic_regression:
+{
+    'C': 10, 
+    'max_iter': 100000, 
+    'penalty': 'l2', 
+    'solver': 'saga'
+}
+```
+
+
 
 ![LR_NOSMOTE](img/LR/LR1.png)
 
----
 
-#### SMOTE
-`Best params for logistic_regression: {'C': 10, 'max_iter': 100000, 'penalty': 'l2', 'solver': 'saga'}`
 
----
+```
+SMOTE 
+
+Best params for logistic_regression:
+{
+    'C': 10, 
+    'max_iter': 100000, 
+    'penalty': 'l2', 
+    'solver': 'saga'
+}
+```
+
+
 
 ![LR_SMOTE](img/LR/LR2.png)
 
----
+
 
 ### **Support Vector Machine (SVM)**
 
 Le SVM sono una delle prime tecniche di apprendimento supervisionato, cercano di trovare l'iperpiano che massimizza il margine tra le classi.
 
-- **resources**:
+- **`resources`**:
   - [svm](https://www.youtube.com/watch?v=_YPScrckx28)
   - [kernel trick](https://www.youtube.com/watch?v=Q7vT0--5VII)
   - [What is the purpose of the C parameter in SVM?](https://eitca.org/artificial-intelligence/eitc-ai-mlp-machine-learning-with-python/support-vector-machine/svm-parameters/examination-review-svm-parameters/what-is-the-purpose-of-the-c-parameter-in-svm-how-does-a-smaller-value-of-c-affect-the-margin-and-misclassifications/#:~:text=The%20C%20parameter%20in%20SVM%20allows%20us%20to%20control%20the,expense%20of%20a%20narrower%20margin.)
@@ -551,21 +621,36 @@ Le SVM sono una delle prime tecniche di apprendimento supervisionato, cercano di
   - `'scale'`: Basato sull'inverso della somma delle varianze delle feature.
   - `'auto'`: Usa l'inverso del numero di feature.
 
----
-#### NO SMOTE
-`Best params for svm: {'C': 2, 'gamma': 'scale', 'kernel': 'linear'}`
+```
+NO SMOTE
 
----
+Best params for svm:
+{
+    'C': 2, 
+    'gamma':
+    'scale',
+    'kernel': 'linear'
+}
+```
+
+
 ![SVM_NOSMOTE](img/SVM/SVM1.png)
 
----
-#### SMOTE
-`Best params for svm: {'C': 2, 'gamma': 'scale', 'kernel': 'poly'}`
+```
+SMOTE
 
----
+Best params for svm:
+{
+    'C': 2, 
+    'gamma': 'scale', 
+    'kernel': 'poly'
+}
+```
+
+
 ![SVM_SMOTE](img/SVM/SVM2.png)
 
----
+
 
 ### **Artificial Neural Network (ANN)**
 
@@ -587,7 +672,7 @@ Le **Artificial Neural Networks (ANN)** sono modelli di apprendimento ispirati a
 - Il processo di calibrazione dei pesi si chiama backpropagation, e usa un metodo di ottimizzazione come il **gradient descent** o **adam**.
 
 
-- **resurces:**
+- **`resurces:`**
   - [ANN](https://www.youtube.com/watch?v=aircAruvnKk)
   - [adam & sgd](https://www.youtube.com/watch?v=MD2fYip6QsQ)
 - **`hidden_layer_sizes`**: Configurazione delle dimensioni dei layer nascosti.
@@ -606,26 +691,47 @@ Le **Artificial Neural Networks (ANN)** sono modelli di apprendimento ispirati a
 - **`max_iter`**: Numero massimo di iterazioni per l’allenamento.
   - `[2000]`: Più iterazioni permettono di affinare il modello, ma aumentano il costo computazionale.
 - **Note**:
-  - ho provato più valori di max_iter partendo da 300 fino a 3000, ho notato che il modello convergeva mediamente a 2000 iterazioni.
+  - ho provato più valori di `max_iter` partendo da 300 fino a 3000, ho notato che il modello convergeva mediamente a 2000 iterazioni.
 
----
 
-#### NO SMOTE
-`Best params for ann: {'activation': 'relu', 'alpha': 0.0001, 'hidden_layer_sizes': (40, 20), 'learning_rate': 'constant', 'max_iter': 2000, 'solver': 'adam'}`
 
----
+```
+NO SMOTE
+
+Best params for ann:
+{
+    'activation': 'relu', 
+    'alpha': 0.0001, 
+    'hidden_layer_sizes': (40, 20), 
+    'learning_rate': 'constant', 
+    'max_iter': 2000, 
+    'solver': 'adam'
+}
+```
+
+
 
 ![ANN_NOSMOTE](img/ANN/ANN1.png)
 
----
 
-#### SMOTE
-`Best params for ann: {'activation': 'relu', 'alpha': 0.05, 'hidden_layer_sizes': (40, 20), 'learning_rate': 'constant', 'max_iter': 2000, 'solver': 'adam'}`
 
----
+```
+SMOTE
+
+Best params for ann: 
+{
+    'activation': 'relu',
+    'alpha': 0.05, 'hidden_layer_sizes': (40, 20), 
+    'learning_rate': 'constant',
+    'max_iter': 2000,
+    'solver': 'adam'
+}
+```
+
+
 ![ANN_SMOTE](img/ANN/ANN2.png)
 
----
+
 
 ## Conclusioni
 
@@ -650,7 +756,7 @@ Possiamo comprendere meglio le relazioni tra le variabili, capire quali variabil
 
 Per affrontare il problema ho deciso di usare l'algoritmo di ricerca Hill Climb, che è un algoritmo di ricerca locale per massimizzare la funzione obbiettivo che nel nostro caso è il **K2 score.**
 
-Ho usato il **K2score**, perchè sono riuscito a ottenere un risultato migliore rispetto al metodo di score BIC, BIC mi forniva un DAG con 2 nodi.
+Ho usato il **K2score**, perchè sono riuscito a ottenere un risultato migliore rispetto al metodo di score **BIC**, **BIC** mi forniva un DAG con 2 nodi.
 
 ![bayesian_network](img/_general/bayes_structure.png)
 
@@ -659,9 +765,9 @@ Ho usato il **K2score**, perchè sono riuscito a ottenere un risultato migliore 
 
 La struttura del modello è molto interessante, possiamo vedere che:
 
-- l'`acs` che è un indicatore medio è l'unica foglia, il suo metodo di calcolo è sconosciuto poichè proprietario di Riot Games ha molto senso che sia l'unica foglia poichè rappresenta un indice medio di valutazione.
-- l' `outcome` dipende principalmente dal kdr, logicamente ha senso poichè se un giocatore ha un kdr alto vuol dire che ha eliminato più nemici di quante volte sia morto, il che implica che le probabilità di vittoria aumentano.
-- Il `personaggio` influenza gli `assists` è perfetto poichè un personaggio che ha funzioni di supporto aiuta i compagni a eliminare i nemici uno che ha funzioni di attacco elimina i nemici in maniera avida (senza aiutare i compagni).
+- l'`acs` che è un indicatore medio è l'unica foglia, il suo metodo di calcolo è sconosciuto poichè proprietario di Riot Games, ha molto senso che sia l'unica foglia, poichè rappresenta un indice medio di valutazione.
+- l' `outcome` dipende principalmente dal kdr, logicamente ha senso poichè, se un giocatore ha un kdr alto vuol dire che ha eliminato più nemici di quante volte sia morto, il che implica che le probabilità di vittoria aumentano.
+- Il `personaggio` influenza gli `assists` è perfetto, poichè un personaggio che ha funzioni di supporto aiuta i compagni a eliminare i nemici, uno che ha funzioni di attacco elimina i nemici in maniera avida (senza aiutare i compagni).
 - l' `headshot_pct` è l'unico valore che influenza solo l'acs, la motivazione è che i colpi alla testa non danno informazioni su quante volte un giocatore ha eliminato un nemico o quanti assists ha fatto, un giocatore porterebbe avere 70% di headshot_pct, ma avere poche kills o viceversa poca **headshot_pct**, ma molte kills si pensa a un fucile a pompa e si immagini la rosa è facile comprendere che mediamente non si fanno molti headshot.
 - tutte le altre relazioni influenzano l'acs che come abbiamo detto ha molto senso poichè è un indice medio di valutazione.
 
@@ -676,18 +782,21 @@ Ho deciso di generare degli esempi per vedere se il modello è coerente con la r
 3      0        0   0.6   69        4            40
 ```
 
-**Nota**: Si veda come nel campione generato come il kdr è correlato all'outcome.
+**Nota**: Si veda come nel campione generato, la relazione tra kdr e outcome.
 
 ### Curiosità
 
 L' immagine mostra delle statistiche di un altro giocatore con rank simile al giocatore del dataset si veda come l' ACS medio del giocatore è vicino a quelli del campione generato.
 
-![img.png](img/_general/wooeiz.png)
+![account_player2](img/_general/wooeiz.png)
 
-Non ho testato il modello in larga scala poichè sono interessato solo alle relazioni fra le variabili però facendo previsioni sullo stesso player da cui proviene la foto (stesso rank e stessi agenti utilizzati) ho ottenuto un risultato eccellente.
+Non ho testato il modello in larga scala poichè sono interessato solo alle relazioni fra le variabili, però facendo previsioni sullo stesso player da cui proviene la foto (stesso rank e stessi agenti utilizzati) ho ottenuto un risultato eccellente.
 
 **La prima partita è vinta la seconda e la terza invece sono perse.**
-![img.png](img/_general/rank_refactor.png)
+
+
+![predicted_proba](img/_general/rank_refactor.png)
+
 
 ```python
 data = pd.DataFrame({
@@ -700,21 +809,21 @@ probability_agent = model.predict(data)
 print("Predicted probabilities:\n", probability_agent)
 ```
 
-![img.png](./img/_general/carbone.png)
+![3games_player2](./img/_general/carbone.png)
 
 In conclusione gli assist non vengono predetti correttamente, ma il modello è molto accurato sia nel predire l'outcome che l'acs.
 
-Questa parte del progetto è molto interessate, poichè si vuol far notare come si possano traslare le statistiche di un player su un altro, questa intuizione deve essere verificata su larga scala, però intuitivamente come descritto prima il rank non influenza le prestazioni di un giocatore, se i giocatori competono con lo stesso livello di abilità le statistiche nella media saranno simili ergo il si può creare un modello che predica mediamente le statistiche di un gruppo di giocatori con lo stesso livello di abilità e usarlo come base per valutare le prestazioni di un giocatore.
+Questa parte del progetto è molto interessate, poichè si vuol far notare come si possano traslare le statistiche di un player su un altro, questa intuizione deve essere verificata su larga scala, però intuitivamente come descritto prima il rank non influenza le prestazioni di un giocatore, se i giocatori competono con lo stesso livello di abilità (rank), le statistiche nella media saranno simili ergo si può creare un modello che predica mediamente le statistiche di un gruppo di giocatori con lo stesso livello di abilità e usarlo come base per valutare le prestazioni di un giocatore.
 
 # Capitolo 4 - Knowledge Base
 
 [prolog](https://lpn.swi-prolog.org/lpnpage.php?pagetype=html&pageid=lpn-htmlse1#:~:text=Knowledge%20Base%201%20(KB1)%20is,woman(mia).)
 
-Possiamo perciò concludere il progetto usando una knowledge base per inferire conoscenza dai dati usando il prolog un linguaggio di programmazione logica.
+Possiamo, perciò concludere il progetto usando una knowledge base per inferire conoscenza dai dati usando il prolog un linguaggio di programmazione logica.
 
 Usiamo l'osservazione fatta nel capitolo 3 dove l' ACS è un valore che viene influenzato da tutte le altre statistiche per creare delle relazioni ad-hoc.
 
-Potrei unire le predizioni fatte dai modelli nel capitolo 2 con le informazioni ottenute e ragionando su di esse mettendo a confronto valutazioni e predizioni però non ho abbastanza dati per fare un confronto significativo.
+Potrei unire le predizioni fatte dai modelli nel capitolo 2, con le informazioni ottenute e ragionando su di esse mettendo a confronto valutazioni e predizioni però non ho abbastanza dati per fare un confronto significativo.
 
 ## Costruzione della knowledge base
 
@@ -759,7 +868,14 @@ Una **regola** in Prolog è una dichiarazione che descrive una relazione tra fat
    La regola `prec(X, Y)` afferma che la partita `X` è precedente alla partita `Y` se il `game_id` di `X` è inferiore a quello di `Y`.
 
    ```prolog
-   prec(X, Y) :- partita(X, _, _, _, _, _, _), partita(Y, _, _, _, _, _, _), sub_atom(X, 1, _, 0, ID_X), sub_atom(Y, 1, _, 0, ID_Y), atom_number(ID_X, Num_X), atom_number(ID_Y, Num_Y), Num_X < Num_Y.
+   prec(X, Y) :- 
+      partita(X, _, _, _, _, _, _), 
+      partita(Y, _, _, _, _, _, _), 
+      sub_atom(X, 1, _, 0, ID_X), 
+      sub_atom(Y, 1, _, 0, ID_Y), 
+      atom_number(ID_X, Num_X), 
+      atom_number(ID_Y, Num_Y), 
+      Num_X < Num_Y.
    ```
    Questo significa che se esistono due partite `X` e `Y`, e se l'ID del gioco `X` è numericamente minore di quello di `Y`, allora `X` è considerata precedente a `Y`.
 
@@ -767,7 +883,10 @@ Una **regola** in Prolog è una dichiarazione che descrive una relazione tra fat
    La regola `better(X, Y)` afferma che la partita `X` è migliore della partita `Y` se l'ACS di `X` è maggiore di quello di `Y`.
 
    ```prolog
-   better(X, Y) :- partita(X, _, _, _, _, ACS_X, _), partita(Y, _, _, _, _, ACS_Y, _), ACS_X > ACS_Y.
+   better(X, Y) :-
+      partita(X, _, _, _, _, ACS_X, _), 
+      partita(Y, _, _, _, _, ACS_Y, _), 
+      ACS_X > ACS_Y.
    ```
 
    In altre parole, se l'ACS di `X` è superiore a quello di `Y`, allora `X` è considerata "migliore" di `Y`.
@@ -776,7 +895,11 @@ Una **regola** in Prolog è una dichiarazione che descrive una relazione tra fat
    La regola `not_newbie(X)` afferma che il giocatore non è più inesperto nel gioco se ha fatto più di 50 partite.
 
    ```prolog
-   not_newbie(X) :- partita(X, _, _, _, _, _, _), sub_atom(X, 1, _, 0, ID_X), atom_number(ID_X, Num_X), Num_X > 50.
+   not_newbie(X) :- 
+      partita(X, _, _, _, _, _, _), 
+      sub_atom(X, 1, _, 0, ID_X), 
+      atom_number(ID_X, Num_X), 
+      Num_X > 50.
    ```
 
    Questo significa che le partite con un `game_id` maggiore di 50 sono considerate come partite in cui il giocatore ha un minimo di esperienza nel gioco.
@@ -784,18 +907,27 @@ Una **regola** in Prolog è una dichiarazione che descrive una relazione tra fat
 4. **Regole per condizioni specifiche (`high_kdr`, `high_headshot`, `high_assists`)**:
 
   - **Regola `high_kdr(X)`**: Determina se una partita ha un KDR maggiore di 1.5.
-    ```prolog
-    high_kdr(X) :- partita(X, _, KDR, _, _, _, _), KDR > 1.5.
+    
+  - ```prolog
+    high_kdr(X) :- 
+       partita(X, _, KDR, _, _, _, _), 
+       KDR > 1.5.
     ```
 
   - **Regola `high_headshot(X)`**: Determina se una partita ha una percentuale di colpi alla testa maggiore di 25.
-    ```prolog
-    high_headshot(X) :- partita(X, _, _, _, Headshot_Pct, _, _), Headshot_Pct > 25.
+    
+  - ```prolog
+    high_headshot(X) :- 
+       partita(X, _, _, _, Headshot_Pct, _, _), 
+       Headshot_Pct > 25.
     ```
 
   - **Regola `high_assists(X)`**: Determina se una partita ha un numero di assist maggiore di 5.
-    ```prolog
-    high_assists(X) :- partita(X, _, _, Assists, _, _, _), Assists > 5.
+    
+  - ```prolog
+    high_assists(X) :- 
+       partita(X, _, _, Assists, _, _, _), 
+       Assists > 5.
     ```
 
 5. **Regola `astonishing(X)`**:
@@ -805,14 +937,15 @@ Una **regola** in Prolog è una dichiarazione che descrive una relazione tra fat
   - Ha una percentuale di partite precedenti peggiori di almeno il 75%.
 
    ```prolog
-   astonishing(X) :-  not_newbie(X), (high_kdr(X); high_headshot(X); high_assists(X)),
-                      findall(Y, (prec(Y, X), better(X, Y)), BetterGames),
-                      length(BetterGames, CountBetter),
-                      findall(Y, prec(Y, X), PreviousGames),
-                      length(PreviousGames, CountPrevious),
-                      CountPrevious > 0,
-                      Ratio is CountBetter / CountPrevious,
-                      Ratio >= 0.75.
+   astonishing(X) :-  
+      not_newbie(X), (high_kdr(X); high_headshot(X); high_assists(X)),
+      findall(Y, (prec(Y, X), better(X, Y)), BetterGames),
+      length(BetterGames, CountBetter),
+      findall(Y, prec(Y, X), PreviousGames),
+      length(PreviousGames, CountPrevious),
+      CountPrevious > 0,
+      Ratio is CountBetter / CountPrevious,
+      Ratio >= 0.75.
    ```
 
    In questa regola, `findall/3` raccoglie tutte le partite precedenti a `X` che sono peggiori, e la partita è considerata straordinaria se la percentuale di tali partite peggiori è superiore o uguale al 75%.
@@ -824,21 +957,23 @@ Una **regola** in Prolog è una dichiarazione che descrive una relazione tra fat
   - **Bad**: Se la partita è migliore di meno del 25% delle partite precedenti.
 
    ```prolog
-   normal(X) :-  not_newbie(X), findall(Y, (prec(Y, X), better(X, Y)), BetterGames),
-                 length(BetterGames, CountBetter),
-                 findall(Y, prec(Y, X), PreviousGames),
-                 length(PreviousGames, CountPrevious),
-                 CountPrevious > 0,
-                 Ratio is CountBetter / CountPrevious,
-                 Ratio >= 0.25, Ratio < 0.75.
+   normal(X) :-  
+    not_newbie(X), findall(Y, (prec(Y, X), better(X, Y)), BetterGames),
+    length(BetterGames, CountBetter),
+    findall(Y, prec(Y, X), PreviousGames),
+    length(PreviousGames, CountPrevious),
+    CountPrevious > 0,
+    Ratio is CountBetter / CountPrevious,
+    Ratio >= 0.25, Ratio < 0.75.
 
-   bad(X) :-  not_newbie(X), findall(Y, (prec(Y, X), better(X, Y)), BetterGames),
-              length(BetterGames, CountBetter),
-              findall(Y, prec(Y, X), PreviousGames),
-              length(PreviousGames, CountPrevious),
-              CountPrevious > 0,
-              Ratio is CountBetter / CountPrevious,
-              Ratio < 0.25.
+   bad(X) :-  
+    not_newbie(X), findall(Y, (prec(Y, X), better(X, Y)), BetterGames),
+    length(BetterGames, CountBetter),
+    findall(Y, prec(Y, X), PreviousGames),
+    length(PreviousGames, CountPrevious),
+    CountPrevious > 0,
+    Ratio is CountBetter / CountPrevious,
+    Ratio < 0.25.
    ```
 
 - I **fatti** descrivono i dettagli delle partite, come il `game_id`, l'agente, il KDR, e altri attributi specifici della partita.
@@ -850,45 +985,30 @@ Una **regola** in Prolog è una dichiarazione che descrive una relazione tra fat
 
 Si riportano 3 partite per valutazione (elenco non esaustivo) si noti come le statistiche della partita influenzano la valutazione.
 
-```
-Astonishing games:
+### Astonishing Games
+| Game ID | Agent  | KDR | Assists | Headshot% | ACS | Outcome |
+|---------|--------|-----|---------|-----------|-----|---------|
+| 62      | Cypher | 1.5 | 6       | 5         | 258 | Win     |
+| 64      | Cypher | 1.5 | 8       | 7         | 248 | Win     |
+| 69      | Cypher | 1.2 | 6       | 8         | 238 | Win     |
 
-+-----------+---------+-------+-----------+-------------+-------+-----------+
-|   Game ID | Agent   |   KDR |   Assists |   Headshot% |   ACS | Outcome   |
-+===========+=========+=======+===========+=============+=======+===========+
-|        62 | Cypher  |   1.5 |         6 |           5 |   258 | Win       |
-+-----------+---------+-------+-----------+-------------+-------+-----------+
-|        64 | Cypher  |   1.5 |         8 |           7 |   248 | Win       |
-+-----------+---------+-------+-----------+-------------+-------+-----------+
-|        69 | Cypher  |   1.2 |         6 |           8 |   238 | Win       |
-+-----------+---------+-------+-----------+-------------+-------+-----------+
+### Normal Games
+| Game ID | Agent  | KDR | Assists | Headshot% | ACS | Outcome |
+|---------|--------|-----|---------|-----------|-----|---------|
+| 51      | Cypher | 1.3 | 9       | 10        | 211 | Win     |
+| 52      | Cypher | 0.8 | 6       | 8         | 172 | Loss    |
+| 53      | Cypher | 0.9 | 8       | 9         | 212 | Win     |
 
-Normal games:
-+-----------+---------+-------+-----------+-------------+-------+-----------+
-|   Game ID | Agent   |   KDR |   Assists |   Headshot% |   ACS | Outcome   |
-+===========+=========+=======+===========+=============+=======+===========+
-|        51 | Cypher  |   1.3 |         9 |          10 |   211 | Win       |
-+-----------+---------+-------+-----------+-------------+-------+-----------+
-|        52 | Cypher  |   0.8 |         6 |           8 |   172 | Loss      |
-+-----------+---------+-------+-----------+-------------+-------+-----------+
-|        53 | Cypher  |   0.9 |         8 |           9 |   212 | Win       |
-+-----------+---------+-------+-----------+-------------+-------+-----------+
+### Bad Games
+| Game ID | Agent  | KDR | Assists | Headshot% | ACS | Outcome |
+|---------|--------|-----|---------|-----------|-----|---------|
+| 54      | Cypher | 0.6 | 1       | 20        | 115 | Loss    |
+| 58      | Cypher | 0.6 | 3       | 12        | 132 | Loss    |
+| 65      | Cypher | 0.7 | 5       | 12        | 89  | Win     |
 
-Bad games:
-+-----------+---------+-------+-----------+-------------+-------+-----------+
-|   Game ID | Agent   |   KDR |   Assists |   Headshot% |   ACS | Outcome   |
-+===========+=========+=======+===========+=============+=======+===========+
-|        54 | Cypher  |   0.6 |         1 |          20 |   115 | Loss      |
-+-----------+---------+-------+-----------+-------------+-------+-----------+
-|        58 | Cypher  |   0.6 |         3 |          12 |   132 | Loss      |
-+-----------+---------+-------+-----------+-------------+-------+-----------+
-|        65 | Cypher  |   0.7 |         5 |          12 |    89 | Win       |
-+-----------+---------+-------+-----------+-------------+-------+-----------+
-```
+## Possibili Upgrade
 
-### Possibili Upgrade
-
-Questa knowledge base è una demo può essere utile per valutare le prestazioni di un giocatore, ma la piena potenzialità si può raggiungere affiancandola da dei modelli che fanno predizioni sulle statistiche di un giocatore e usare la knowledge base per valutare le prestazioni.
+Questa knowledge base è una demo, può essere utile per valutare le prestazioni di un giocatore, ma la piena potenzialità si può raggiungere affiancandola da dei modelli che fanno predizioni sulle statistiche di un giocatore e usare la knowledge base per valutare le prestazioni.
 
 
 # Capitolo 5 - Conclusioni
@@ -903,7 +1023,7 @@ Riot mette a disposizione la possibilità di contattare i developer presentando 
 
 ### Possibili Sviluppi Futuri
 
-La knowledge base in prolog si può ampliare con nuove regole e fatti in tal modo che a ogni round si può fare inferenze sulle statistiche di un giocatore e predire l' esito della partita a lunga andata avvisando il giocatore che sta avendo prestazioni scadenti o viceversa.
+La knowledge base in prolog si può ampliare con nuove regole e fatti in tal modo che a ogni round si può fare inferenze sulle statistiche di un giocatore e predire l' esito della partita a lunga andata, avvisando il giocatore se sta avendo prestazioni scadenti o viceversa.
 
 Si potrebbe risalire a come l' acs viene calcolato apprendendo la struttura su dataset più ampi risalendo dalla probabilità condizionata di `acs` a un vettore di peso sulle altre statistiche.
 
